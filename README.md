@@ -7,6 +7,10 @@
 <b>NEW </b> : GUI is added
 ## Requirement
 1. Python 3.6 (Anaconda Python is preferred)
+2. Pandas
+
+If you use GUI:
+1. PyQt5
 
 ## How to use
 1. Clone the git repository
@@ -73,6 +77,13 @@ Noo+onee Noo+onee Noo+onee Noo+onee Noo+onee Noo+onee Noo+onee Noo+onee Noo+onee
 S0i0k1+3 Noo+onee S0i1k1+3 Noo+onee S0i2k1+3 Noo+onee S0i3k1+3 Noo+onee S0i4k1+3
 Noo+onee Noo+onee Noo+onee Noo+onee K0k3+15 Noo+onee Noo+onee Noo+onee Noo+onee
 `</div>
+To read:<br>
+S1i0k1+3
+S = Soldier the type of pawn
+1 = player index
+i0 = pawn index is 0
+k1 = attack point of pawn is 1
++3 = health point of pawn is 3
 <br>
 #### Mana Status of Each Players
 
