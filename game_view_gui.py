@@ -34,6 +34,17 @@ class ViewGUI(QWidget):
             self.reset_board_two_players(returned_params)
             self.parse_possible_action()
 
+    def button_ai_white_vs_players_clicked(self):
+        sender = self.sender()
+        returned_params = self.gc.play_with_ai_white()
+        returned_task_controller = returned_params['task']
+        if returned_task_controller == "END_GAME":
+            self.task = "END GAME"
+        else:
+            self.clear_all_button_board()
+            self.reset_board_two_players(returned_params)
+            self.parse_possible_action()
+
     def decide_status_board_css(self,y,x):
         return self.ACTIVE_PAWN_CSS if self.list_btn_board[y][x].active_status_pawn  else self.INACTIVE_PAWN_CSS
 
@@ -368,7 +379,7 @@ class ViewGUI(QWidget):
         self.button_two_players = QPushButton("Play Two Players")
         self.button_two_players.clicked.connect(self.button_two_players_clicked)
         self.button_ai_white_player = QPushButton("AI White vs Human")
-
+        self.button_ai_white_player.clicked.connect(self.button_ai_white_vs_players_clicked)
 
         main_layout.addWidget(self.button_two_players)
         main_layout.addWidget(self.button_ai_white_player)
