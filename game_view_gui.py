@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import (QWidget, QPushButton,
     QHBoxLayout, QVBoxLayout, QApplication, QGridLayout, QLabel,
-    QMainWindow, QInputDialog)
+    QMainWindow, QInputDialog, QMessageBox)
 from game_controller import AIElements, GameController
 from copy import deepcopy
 from pprint import pprint
@@ -170,6 +170,15 @@ class ViewGUI(QWidget):
         for tuple_range in sender.attack_list:
             self.list_btn_board[tuple_range[1]][tuple_range[0]].setStyleSheet("")
         sender.clear_attack_list()
+        for tuple_range in sender.move_list:
+            try: self.list_btn_board[tuple_range[1]][tuple_range[0]].disconnect()
+            except Exception: pass
+            self.list_btn_board[tuple_range[1]][tuple_range[0]].setEnabled(False)
+        try: sender.clicked.disconnect()
+        except Exception: pass
+        for tuple_range in sender.move_list:
+            self.list_btn_board[tuple_range[1]][tuple_range[0]].setStyleSheet("")
+        sender.clear_move_list()
         self.parse_possible_action()
 
     def button_attack_pawn(self):
@@ -204,7 +213,7 @@ class ViewGUI(QWidget):
             self.list_btn_board[tuple_range[1]][tuple_range[0]].setStyleSheet(self.TILE_MOVE_CSS)
             self.list_btn_board[tuple_range[1]][tuple_range[0]].set_move_key(tuple_range[2])
             self.list_btn_board[tuple_range[1]][tuple_range[0]].clicked.connect(lambda : self.button_move_pawn())
-        sender.clicked.connect(lambda : self.disable_move())
+        sender.clicked.connect(lambda : self.disable_attack())
 
     def button_move_pawn(self):
         sender = self.sender()
@@ -358,8 +367,12 @@ class ViewGUI(QWidget):
 
         self.button_two_players = QPushButton("Play Two Players")
         self.button_two_players.clicked.connect(self.button_two_players_clicked)
+        self.button_ai_white_player = QPushButton("AI White vs Human")
+
 
         main_layout.addWidget(self.button_two_players)
+        main_layout.addWidget(self.button_ai_white_player)
+
         main_layout.addLayout(board_layout)
         main_layout.addLayout(info_layout)
 
