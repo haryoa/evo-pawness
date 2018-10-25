@@ -8,10 +8,12 @@
 ## Requirement
 1. Python 3.6 (Anaconda Python is preferred)
 2. Pandas
+`pip -U install pandas`
 
 If you use GUI:
 1. PyQt5
-
+Install
+`pip -U install pyqt5`
 ## How to use
 1. Clone the git repository
 2. Activate your CLI or terminal and do command `python main.py` in the main directory.
