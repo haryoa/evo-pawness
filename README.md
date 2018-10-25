@@ -16,7 +16,7 @@ Install
 `pip -U install pyqt5`
 ## How to use
 1. Clone the git repository
-2. Activate your CLI or terminal and do command `python main.py` in the main directory.
+2. Activate your CLI or terminal and do command `python main.py` (if you want to use CLI) or `python game_view_gui.py` (if you want to use the GUI) in the main directory.
 
 ## Format output CLI
 I will make it easier to use later on. Just hang on with this UX.Here is the output format:
