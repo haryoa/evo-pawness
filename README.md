@@ -50,9 +50,9 @@ Use this command on your terminal
 |ACTION_KEY|input the action. The ACTION_KEY is stated in the list of action provided in the command line.|
 ## Progress
 - [x] Add basic elements to be input of AI Algorithm
-- [x] Documenting (almost all of them)
+- [ ] Documenting 
 - [ ] Fix the mess of the code (need more class and remove unnecessary code)
-- [ ] Create the GUI
+- [X] Create the GUI
 - [ ] Use classic AI Algorithm
 - [ ] Use Reinforcement Learning
 ## FAQ
