@@ -1,6 +1,6 @@
 # EvoPawness Game
 
-<p>Based on the article that I write https://medium.com/me/stats/post/5dcb028002b8</p>
+<p>Based on the article that I write https://towardsdatascience.com/create-your-own-board-game-with-powerful-ai-from-scratch-part-1-5dcb028002b8</p>
 
 <p>The game will be used to experiment AI Algorithm. Currently, No AI Algorithm that has been implemented. For the rules of the game, you can read the article.</p>
 
