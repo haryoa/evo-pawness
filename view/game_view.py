@@ -1,4 +1,4 @@
-from game_controller import GameController, AIElements
+from controller.game_controller import GameController, AIElements
 from pprint import pprint
 import numpy as np
 import pandas as pd

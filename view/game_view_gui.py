@@ -2,7 +2,9 @@ import sys
 from PyQt5.QtWidgets import (QWidget, QPushButton,
     QHBoxLayout, QVBoxLayout, QApplication, QGridLayout, QLabel,
     QMainWindow, QInputDialog, QMessageBox)
-from game_controller import AIElements, GameController
+from controller.game_controller import GameController
+from ai_modules.ai_elements import AIElements
+
 from copy import deepcopy
 from pprint import pprint
 import gc
@@ -55,7 +57,7 @@ class ViewGUI(QWidget):
         self.promote_coor = []
         self.move_coor = []
         self.atk_coor = []
-        pprint(self.possible_action)
+        # pprint(self.possible_action)
         for key, value in self.possible_action.items():
             if value['action'] == 'activate':
                 self.btn_activate.setEnabled(True)
@@ -89,7 +91,7 @@ class ViewGUI(QWidget):
                                         "end_y" : end_y,\
                                         "move_key" : key})
                 self.list_btn_board[pawn_y][pawn_x].add_attack_list(end_y, end_x , key)
-                print(self.list_btn_board[pawn_y][pawn_x].attack_list)
+                # print(self.list_btn_board[pawn_y][pawn_x].attack_list)
                 self.list_btn_board[pawn_y][pawn_x].clicked.connect(lambda: self.enable_attack())
 
             if value['action'] == 'promote':
@@ -139,7 +141,7 @@ class ViewGUI(QWidget):
         self.parse_possible_action()
 
     def button_promote_pawn(self):
-        print(self.sender().promote_dict.keys())
+        # print(self.sender().promote_dict.keys())
         items = self.sender().promote_dict.keys()
         item, okPressed = QInputDialog.getItem(self, "Select Promote","Promote To:", items, 0, False)
         if item and okPressed:
@@ -319,7 +321,7 @@ class ViewGUI(QWidget):
 
     def reset_board_two_players(self, returned_params):
         self.clear_all_button_board()
-        pprint(returned_params)
+        # pprint(returned_params)
 
         # TODO put to check task function
         if returned_params['task'] == 'END_GAME':
@@ -491,7 +493,7 @@ class BoardButton(QPushButton):
         if object_type == "rune":
             self.setText("Rune")
         else: # pawn
-            pprint(params)
+            # pprint(params)
             player_index = params['player'].color
             color = 'Black' if player_index == 1 else 'White'
             text_button = color + "\n " + params['pawn_type'] + str(params['pawn_index']) + "\n HP : " + str(params['hp']) + \

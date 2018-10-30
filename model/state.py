@@ -18,6 +18,11 @@ class State:
         self.turn = 1
         self.player_list = []
         self.board = [[None for i in range(self.board_size)] for j in range(self.board_size)] # board to show the position of our pawns
+        self.PAWN_HP_DEFAULT = 5
+        self.PAWN_ATK_DEFAULT = 1
+        self.PAWN_STEP_DEFAULT = 1
+        self.KING_HP_DEFAULT = 15
+        self.KING_ATK_DEFAULT = 4
 
     def is_terminal(self):
         """
@@ -42,7 +47,45 @@ class State:
         return True
 
     def total_eval(self, player_color):
-        pass
+        """
+            Evaluation Function
+            The formula is:
+            0.5(total_player_pawn_hp - total_enemy_pawn_hp) +
+            0.1(total_player_pawn_atk - total_enemy_pawn_atk) +
+            0.1(total_player_pawn_step - total_enemy_pawn_step) +
+            5(total_enemy_dead_pawn - total_player_dead_pawn) +
+            1(player_king_hp - enemy_king_hp)
+            Parameters
+            ----------
+            player_color : the player_index
+
+            Returns
+            -------
+            int
+                how far is the advantage of a player
+        """
+        (player_king, enemy_king) = (self.white_king, self.black_king) if player_color == 0 else (self.black_king, self.white_king)
+
+        if self.is_terminal():
+            if player_king.dead:
+                return -20
+            else:
+                return 20
+        eval_value = 0
+        (current_player_pawn_list, enemy_pawn_list) = (self.white_pawn_list, self.black_pawn_list) if player_color == 0 else (self.black_pawn_list, self.white_pawn_list)
+        for player_pawn, enemy_pawn in zip(current_player_pawn_list,enemy_pawn_list):
+            eval_value += 0.3*(player_pawn.hp - enemy_pawn.hp)
+            if player_pawn.status:
+                eval_value += 0.1*player_pawn.atk + 0.1*player_pawn.step
+            if enemy_pawn.status:
+                eval_value -= 0.1*enemy_pawn.atk - 0.1*enemy_pawn.step
+            eval_value += (int(enemy_pawn.dead) - int(player_pawn.dead)) * 5
+
+        eval_value += player_king.hp - enemy_king.hp
+
+        return eval_value
+
+
 
     def reward_eval(self, player_color):
         pass
@@ -108,16 +151,16 @@ class State:
         self.player_list.append(Player(5,1))
 
         # init King
-        self.white_king = King(15,3,4,8, self.player_list[0])
+        self.white_king = King(self.KING_HP_DEFAULT,self.KING_ATK_DEFAULT,4,8, self.player_list[0])
         self.board[4][8] = self.white_king
-        self.black_king = King(15,3,4,0, self.player_list[1])
+        self.black_king = King(self.KING_HP_DEFAULT,self.KING_ATK_DEFAULT,4,0, self.player_list[1])
         self.board[4][0] = self.black_king
 
         init_pawn_spawn = int(9/2) + 1
         for i in range(init_pawn_spawn):
-            self.white_pawn_list.append(SoldierPawn(i,3,1,i*2,7,False,self.player_list[0],2))
+            self.white_pawn_list.append(SoldierPawn(i,self.PAWN_HP_DEFAULT,self.PAWN_ATK_DEFAULT,i*2,7,False,self.player_list[0],self.PAWN_STEP_DEFAULT))
             self.board[i*2][7] = self.white_pawn_list[i]
-            self.black_pawn_list.append(SoldierPawn(i,3,1,i*2,1,False,self.player_list[1],2))
+            self.black_pawn_list.append(SoldierPawn(i,self.PAWN_HP_DEFAULT,self.PAWN_ATK_DEFAULT,i*2,1,False,self.player_list[1],self.PAWN_STEP_DEFAULT))
             self.board[i*2][1] = self.black_pawn_list[i]
 
     def print_board(self):
@@ -290,10 +333,8 @@ class State:
                 dir_index = possible_moves[2]
                 counter_loop_moves += 1
                 if self._is_valid_moves(x_end, y_end):
-                    pprint((x_end, y_end))
 
                     if self._is_occupied_by_enemy(x_end, y_end): #attack
-                        pprint("Occupied")
                         pawn_target = self.board[x_end][y_end]
 
                         action_params = {
@@ -353,7 +394,8 @@ class State:
         if self.turn % 5 == 0:
             self.rune_list = []
             rune_list = [Rune() for i in range(2)]
-            coor_random = random.sample([(i,j) for i in range(9) for j in range(9)],2)
+            #coor_random = random.sample([(i,j) for i in range(9) for j in range(9) if self.board[i][j] is None],2)
+            coor_random = [(0, 4), (8, 4)]
             counter_loop = 0
             for coor in coor_random:
                 pawn_target = self.board[coor[0]][coor[1]]
@@ -363,10 +405,14 @@ class State:
                     rune_list[counter_loop].x = coor[0]
                     rune_list[counter_loop].y = coor[1]
                     self.rune_list.append(rune_list[counter_loop])
+
                 counter_loop += 1
 
     def get_players_mana(self):
         return (self.player_list[0].mana,self.player_list[1].mana)
+
+    def get_player_turn(self):
+        return self.turn % 2
 
     def _is_occupied_by_enemy(self, x_new, y_new):
         """

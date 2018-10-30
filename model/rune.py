@@ -23,12 +23,12 @@ class Rune:
             get buff of one of the following attribute: atk, hp, step
         """
         rand_num = random.randrange(0,3)
-        if rand_num == 0:
-            pawn.atk += self.atk_plus
-        elif rand_num == 1:
-            pawn.hp += self.hp_plus
-        else:
-            pawn.step += self.step_plus
+        #if rand_num == 0:
+        pawn.atk += self.atk_plus
+        #elif rand_num == 1:
+        pawn.hp += self.hp_plus
+        #else:
+        pawn.add_step(self.step_plus)
 
     def __repr__(self):
         return "a" + str(self.atk_plus) + "h" + str(self.hp_plus) + "s" + str(self.step_plus) + "+r"

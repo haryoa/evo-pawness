@@ -19,7 +19,7 @@ class Pawn:
             Coordinate of the pawn
         y : int
             Coordinate of the pawn
-        player : int
+        player : intz
             index or color of the player who has this pawn. 0 is white, 1 is black
         step : int
             steps can be taken by the pawn on using 'move' action
@@ -53,6 +53,7 @@ class Pawn:
             enemy_pawn.dead = True
             enemy_pawn.x = -2
             enemy_pawn.y = -2
+            enemy_pawn.hp = 0
 
     def add_step(self, added_step):
         """
@@ -63,9 +64,9 @@ class Pawn:
             added_step : int
                 added step to this pawn
         """
-        total = self.step + added_step
-        if total <= 4:
-            self.step = total
+        self.step += added_step
+        if self.step >= 3:
+            self.step = 3
 
     def move(self, new_x, new_y):
         self.x = new_x
@@ -127,9 +128,10 @@ class SoldierPawn(Pawn):
                     choice
         """
         if promote_choice == 'Bishop': #Bishop
-            return BishopPawn(self.pawn_index,self.hp+2,self.atk+1,self.x,self.y, self.status, self.player, self.step+1)
+            self.add_step(1)
+            return BishopPawn(self.pawn_index,self.hp+2,self.atk+1,self.x,self.y, self.status, self.player, self.step)
         if promote_choice == 'Knight': #Knight
-            return KnightPawn(self.pawn_index,self.hp,self.atk+4,self.x,self.y, self.status, self.player, self.step)
+            return KnightPawn(self.pawn_index,self.hp,self.atk+3,self.x,self.y, self.status, self.player, self.step)
         if promote_choice == 'Rook': #Rook
             return RookPawn(self.pawn_index,self.hp+2,self.atk+2,self.x,self.y, self.status, self.player, self.step)
 
@@ -214,15 +216,15 @@ class King(Pawn):
         self.x = x
         self.y = y
         self.player = player
-        self.step = 1
+        self.step = 3
         self.status = True
-        self.dir = [(1,0),(0,1),(0,-1),(-1,0)]
+        self.dir = [(1,0),(0,1),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1)]
         self.dead = False
         self.pawn_index = -1
         self.pawn_type = self.__class__.__name__
 
 
-    def add_step(self, added_step):
+    def tep(self, added_step):
         self.step = 0
 
     def attack_enemy(self, enemy_pawn):
@@ -242,7 +244,7 @@ class King(Pawn):
         for direction in direction_move:
             possible_move_list.append((self.x + direction[0],self.y + direction[1], counter_dir_moves))
             counter_dir_moves += 1
-        return {'possible' : possible_move_list}
+        return super()._possible_move_promoted_helper(self.x,self.y,direction_move)
 
     def __repr__(self):
         return self.__class__.__name__[0] + str(self.player.color) + 'k' + str(self.atk) + '+' + str(self.hp)
