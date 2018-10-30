@@ -22,7 +22,7 @@ class State:
         self.PAWN_ATK_DEFAULT = 1
         self.PAWN_STEP_DEFAULT = 1
         self.KING_HP_DEFAULT = 15
-        self.KING_ATK_DEFAULT = 4
+        self.KING_ATK_DEFAULT = 3
 
     def is_terminal(self):
         """
@@ -38,13 +38,15 @@ class State:
         if self.white_king.dead or self.black_king.dead:
             return True
 
-        # check if all of the pawns are dead
+        boolean_white = True
+        boolean_black = True
+        # check if all of the pawns of white are dead
         for pawnw, pawnb in zip(self.white_pawn_list,self.black_pawn_list):
             if not pawnw.dead:
-                return False
+                boolean_white = False
             if not pawnb.dead:
-                return False
-        return True
+                boolean_black = False
+        return boolean_white or boolean_black
 
     def total_eval(self, player_color):
         """
@@ -68,9 +70,9 @@ class State:
 
         if self.is_terminal():
             if player_king.dead:
-                return -20
+                return -120
             else:
-                return 20
+                return 120
         eval_value = 0
         (current_player_pawn_list, enemy_pawn_list) = (self.white_pawn_list, self.black_pawn_list) if player_color == 0 else (self.black_pawn_list, self.white_pawn_list)
         for player_pawn, enemy_pawn in zip(current_player_pawn_list,enemy_pawn_list):
@@ -400,7 +402,8 @@ class State:
             for coor in coor_random:
                 pawn_target = self.board[coor[0]][coor[1]]
                 if pawn_target is not None:
-                    rune_list[counter_loop].buff_pawn(pawn_target)
+                    pass # Too OP for now
+                    #rune_list[counter_loop].buff_pawn(pawn_target)
                 else:
                     rune_list[counter_loop].x = coor[0]
                     rune_list[counter_loop].y = coor[1]

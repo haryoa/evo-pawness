@@ -232,6 +232,8 @@ class ViewGUI(QWidget):
         sender = self.sender()
         self.gc.receive_input_action_play(sender.move_key, self.possible_action[sender.move_key])
         returned_params = self.gc.get_whattodo_view()
+        print(type(returned_params))
+
         self.returned_params = returned_params
         returned_task_controller = returned_params['task']
         self.clear_all_button_board()
@@ -326,6 +328,7 @@ class ViewGUI(QWidget):
         # TODO put to check task function
         if returned_params['task'] == 'END_GAME':
             QMessageBox.about(self, "Title", "Game has ended")
+            sys.exit()
 
 
         self.mana_0 = returned_params['state']['player_list'][0]['mana']
@@ -390,6 +393,7 @@ class ViewGUI(QWidget):
         main_layout.addLayout(info_layout)
 
         self.setLayout(main_layout)
+        self.move(50,50)
         self.show()
 
     def ui_info_mana(self):

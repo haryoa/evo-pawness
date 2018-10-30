@@ -40,7 +40,7 @@ class MinimaxAgent:
 
     def _minimax(self, current_depth, state, is_max_turn):
 
-        if current_depth == self.max_depth:
+        if current_depth == self.max_depth or state.is_terminal():
             return AIElements.evaluation_function(state, self.player_color), ""
 
         possible_action = AIElements.get_possible_action(state)
@@ -104,7 +104,7 @@ class MinimaxABAgent:
 
     def _minimax(self, current_depth, state, is_max_turn, alpha, beta):
 
-        if current_depth == self.max_depth:
+        if current_depth == self.max_depth or state.is_terminal():
             return AIElements.evaluation_function(state, self.player_color), ""
 
         possible_action = AIElements.get_possible_action(state)

@@ -49,7 +49,7 @@ class GameController():
         possible_action = AIElements.get_possible_action(self.state)
         self.possible_action_keys = possible_action.keys()
         # self.ai_agent = GameAI(agent_type=ai_agent)
-        self.ai_agent = MinimaxABAgent(max_depth=4, player_color=0)
+        self.ai_agent = MinimaxABAgent(max_depth=2, player_color=0)
         # self.ai_agent = RandomAgent(max_depth=5, player_color=0)
         self.old_state_reward = deepcopy(self.state)
 
@@ -69,6 +69,7 @@ class GameController():
         params_view_action = {}
         if AIElements.is_over(self.state):
             params_view_action['task'] = 'END_GAME'
+            print("test")
             return params_view_action
         if self.two_players:
             params_view_action['task'] = 'CHANGE_PLAYER'
@@ -84,7 +85,8 @@ class GameController():
             self.receive_input_action_play(ai_key_action, ai_action_params)
             if AIElements.is_over(self.state):
                 params_view_action['end'] = True
-                return
+                params_view_action['task'] = 'END_GAME'
+                return params_view_action
             print("Reward Function is %.2f" % (AIElements.reward_function(self.old_state_reward, self.state, 1))) #Black
             self.old_state_reward = deepcopy(self.state)
             state_dict = AIElements.get_state_dict(self.state)
@@ -98,4 +100,5 @@ class GameController():
             params_view_action["prev_mana"] = previous_mana
             params_view_action["possible_action"] = possible_action
             self.possible_action_keys = possible_action.keys()
+        print(type(params_view_action))
         return params_view_action
