@@ -39,7 +39,7 @@ k1 = attack point of pawn is 1
 {}`
 
 ## How to use the GUI:
-![alt text](GUI.png "Logo Title Text 1")
+![alt text](GUI.PNG "Logo Title Text 1")
 
 Use this command on your terminal
 `python main_gui.py`
