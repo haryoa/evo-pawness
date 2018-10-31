@@ -67,21 +67,35 @@ class State:
                 how far is the advantage of a player
         """
         (player_king, enemy_king) = (self.white_king, self.black_king) if player_color == 0 else (self.black_king, self.white_king)
+        (current_player_pawn_list, enemy_pawn_list) = (self.white_pawn_list, self.black_pawn_list) if player_color == 0 else (self.black_pawn_list, self.white_pawn_list)
 
         if self.is_terminal():
             if player_king.dead:
                 return -120
-            else:
+            elif enemy_king.dead:
                 return 120
+            else:
+                util_value = 0
+                for player_pawn, enemy_pawn in zip(current_player_pawn_list,enemy_pawn_list):
+                    util_value += (int(enemy_pawn.dead) - int(player_pawn.dead))
+                if util_value < 0:
+                    util_value = -120
+                else:
+                    util_value = 120
+                return util_value
+
         eval_value = 0
-        (current_player_pawn_list, enemy_pawn_list) = (self.white_pawn_list, self.black_pawn_list) if player_color == 0 else (self.black_pawn_list, self.white_pawn_list)
         for player_pawn, enemy_pawn in zip(current_player_pawn_list,enemy_pawn_list):
-            eval_value += 0.3*(player_pawn.hp - enemy_pawn.hp)
-            if player_pawn.status:
-                eval_value += 0.1*player_pawn.atk + 0.1*player_pawn.step
-            if enemy_pawn.status:
-                eval_value -= 0.1*enemy_pawn.atk - 0.1*enemy_pawn.step
-            eval_value += (int(enemy_pawn.dead) - int(player_pawn.dead)) * 5
+
+            if not player_pawn.dead:
+                eval_value += 0.3 * player_pawn.hp
+            if not enemy_pawn.dead:
+                eval_value -= 0.3 * enemy_pawn.hp
+            if player_pawn.status and not player_pawn.dead:
+                eval_value += 0.1 * player_pawn.atk + 0.1 * player_pawn.step
+            if enemy_pawn.status and not enemy_pawn.dead:
+                eval_value -= 0.1 * enemy_pawn.atk - 0.1 * enemy_pawn.step
+            eval_value += (int(enemy_pawn.dead) - int(player_pawn.dead)) * 10
 
         eval_value += player_king.hp - enemy_king.hp
 

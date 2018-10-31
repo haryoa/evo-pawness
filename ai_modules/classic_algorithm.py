@@ -1,7 +1,7 @@
 from random import shuffle
 from model.state import State
 from ai_modules.ai_elements import AIElements
-
+import time
 class MinimaxAgent:
     """
         Minimax agent
@@ -20,6 +20,7 @@ class MinimaxAgent:
         """
         self.max_depth = max_depth
         self.player_color = player_color
+        self.node_expanded = 0
 
     def choose_action(self, state):
         """
@@ -34,8 +35,13 @@ class MinimaxAgent:
         float, str:
             The evaluation or utility and the action key name
         """
+        self.node_expanded = 0
+        print("MINIMAX : Wait AI is choosing")
+        start_time = time.time()
         list_action = AIElements.get_possible_action(state)
         eval_score, selected_key_action = self._minimax(0,state,True)
+        print("MINIMAX : Done, eval = %d, expanded %d" % (eval_score, self.node_expanded))
+        print("--- %s seconds ---" % (time.time() - start_time))
         return (selected_key_action,list_action[selected_key_action])
 
     def _minimax(self, current_depth, state, is_max_turn):
@@ -43,6 +49,7 @@ class MinimaxAgent:
         if current_depth == self.max_depth or state.is_terminal():
             return AIElements.evaluation_function(state, self.player_color), ""
 
+        self.node_expanded += 1
         possible_action = AIElements.get_possible_action(state)
         key_of_actions = list(possible_action.keys())
 
@@ -52,7 +59,7 @@ class MinimaxAgent:
         for action_key in key_of_actions:
             new_state = AIElements.result_function(state,possible_action[action_key])
 
-            eval_child, action_child = self._minimax(current_depth+1,new_state,False)
+            eval_child, action_child = self._minimax(current_depth+1,new_state,not is_max_turn)
 
             if is_max_turn and best_value < eval_child:
                 best_value = eval_child
@@ -82,6 +89,7 @@ class MinimaxABAgent:
         """
         self.max_depth = max_depth
         self.player_color = player_color
+        self.node_expanded = 0
 
     def choose_action(self, state):
         """
@@ -96,16 +104,24 @@ class MinimaxABAgent:
         float, str:
             The evaluation or utility and the action key name
         """
+        self.node_expanded = 0
+
+        start_time = time.time()
+
         print("MINIMAX AB : Wait AI is choosing")
         list_action = AIElements.get_possible_action(state)
         eval_score, selected_key_action = self._minimax(0,state,True,float('-inf'),float('inf'))
-        print("MINIMAX : Done, eval = %d" % (eval_score))
+        print("MINIMAX : Done, eval = %d, expanded %d" % (eval_score, self.node_expanded))
+        print("--- %s seconds ---" % (time.time() - start_time))
+
         return (selected_key_action,list_action[selected_key_action])
 
     def _minimax(self, current_depth, state, is_max_turn, alpha, beta):
 
         if current_depth == self.max_depth or state.is_terminal():
             return AIElements.evaluation_function(state, self.player_color), ""
+
+        self.node_expanded += 1
 
         possible_action = AIElements.get_possible_action(state)
         key_of_actions = list(possible_action.keys())
@@ -116,7 +132,7 @@ class MinimaxABAgent:
         for action_key in key_of_actions:
             new_state = AIElements.result_function(state,possible_action[action_key])
 
-            eval_child, action_child = self._minimax(current_depth+1,new_state,False, alpha, beta)
+            eval_child, action_child = self._minimax(current_depth+1,new_state,not is_max_turn, alpha, beta)
 
             if is_max_turn and best_value < eval_child:
                 best_value = eval_child

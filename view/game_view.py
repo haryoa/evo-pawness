@@ -162,7 +162,9 @@ class GameViewCLI():
                                                         + str(pawn['atk']) \
                                                         + 'h' \
                                                         + str(pawn['hp']) \
-                                                        + 's' \
+                                                        + 'p' \
+                                                        + str(pawn['step']) \
+                                                        + 't' \
                                                         + str(pawn['status'])[0:2]
 
     def one_action(self, list_action):
