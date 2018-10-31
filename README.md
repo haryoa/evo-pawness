@@ -24,12 +24,13 @@ List of Action :
           'PARAMS' : 'VALUE PARAMS'}
 #### Board
 To read:  
-S1i0k1+3  
-S = Soldier the type of pawn  
-1 = player index  
-i0 = pawn index is 0  
-k1 = attack point of pawn is 1  
-+3 = health point of pawn is 3  
+Soi3a1h5t1sFa  
+So = Soldier the type of pawn, It will takes 2 characters from the pawn's type name  
+i3 = player index  
+a1 = Attack point is 1   
+h5 = health point of pawn is 5  
+t1 = Step is 1  
+sFa = Status is inactive (False) Tr if active  
 
 #### Mana Status of Each Players
 
@@ -39,7 +40,7 @@ k1 = attack point of pawn is 1
 {}`
 
 ## How to use the GUI:
-![alt text](GUI.png "Logo Title Text 1")
+![alt text](GUI.PNG "Logo Title Text 1")
 
 Use this command on your terminal
 `python main_gui.py`
