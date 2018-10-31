@@ -5,12 +5,18 @@ Based on the article that I write https://towardsdatascience.com/create-your-own
 <p>The game will be used to experiment AI Algorithm. Currently, No AI Algorithm that has been implemented. For the rules of the game, you can read the article.</p>
 
 GUI has been added
+
 ## Requirement
+
 1. Python 3.6 (Anaconda Python is preferred)
 2. Pandas
 
+Install Python Anaconda if you haven't
+https://www.anaconda.com/download/
+
 If you use GUI:
 1. PyQt5
+`pip install pyqt5`
 
 ## How to use
 1. Clone the git repository
