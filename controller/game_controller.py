@@ -1,7 +1,7 @@
+from util.state_modifier_util import mirror_state
 from model.state import State
 from copy import deepcopy
-import random
-from ai_modules.classic_algorithm import MinimaxABAgent, RandomAgent, MinimaxAgent
+from ai_modules.classic_algorithm import MinimaxABAgent
 from ai_modules.ai_elements import AIElements
 
 class GameController():
@@ -49,7 +49,7 @@ class GameController():
         possible_action = AIElements.get_possible_action(self.state)
         self.possible_action_keys = possible_action.keys()
         # self.ai_agent = GameAI(agent_type=ai_agent)
-        self.ai_agent = MinimaxABAgent(max_depth=4, player_color=0)
+        self.ai_agent = MinimaxABAgent(max_depth=1, player_color=0)
         # self.ai_agent = RandomAgent(max_depth=5, player_color=0)
         self.old_state_reward = deepcopy(self.state)
 
@@ -67,6 +67,10 @@ class GameController():
 
     def get_whattodo_view(self):
         params_view_action = {}
+        mirrored_state:State = mirror_state(self.state)
+        # print("DEBUG MIRROR")
+        # mirrored_state.print_board()
+        self.state.print_board()
         if AIElements.is_over(self.state):
             params_view_action['task'] = 'END_GAME'
             print("test")

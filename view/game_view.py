@@ -1,6 +1,7 @@
+from IPython.core.display import display
+
 from controller.game_controller import GameController, AIElements
 from pprint import pprint
-import numpy as np
 import pandas as pd
 class GameViewCLI():
     """
@@ -78,7 +79,8 @@ class GameViewCLI():
             print(returned_task_controller)
             if returned_task_controller == 'CHANGE_PLAYER':
                 self.parse_returned_params_change_player(returned_params)
-                pprint(pd.DataFrame(self.board))
+                pd.options.display.max_columns = 10
+                display(pd.DataFrame(self.board))
                 pprint(self.possible_action)
                 pprint(self.rune_list)
                 pprint(self.player_list)

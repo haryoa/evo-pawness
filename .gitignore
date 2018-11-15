@@ -1,3 +1,4 @@
 *.ipynb
 models/*
-reinforcement_learning_train
+*.hdf5
+*.p

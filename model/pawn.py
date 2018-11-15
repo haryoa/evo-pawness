@@ -38,6 +38,9 @@ class Pawn:
         self.dir = []
         self.dead = False
         self.pawn_type = self.__class__.__name__
+        self.LIMIT_ATK = 8
+        self.LIMIT_STEP = 3
+        self.LIMIT_HP = 20
 
     def attack_enemy(self, enemy_pawn):
         """
@@ -65,13 +68,32 @@ class Pawn:
                 added step to this pawn
         """
         self.step += added_step
-        if self.step >= 3:
-            self.step = 3
+        if self.step >= self.LIMIT_STEP:
+            self.step = self.LIMIT_STEP
 
     def move(self, new_x, new_y):
         self.x = new_x
         self.y = new_y
 
+    def add_atk(self, added_atk):
+        """
+            Limit ATK Bonus
+        :param added_atk: add the atk. The atk cannot be higher than 8
+        :return:
+        """
+        self.atk += added_atk
+        if self.atk >= self.LIMIT_ATK:
+            self.atk = self.LIMIT_ATK
+
+    def add_hp(self, added_hp):
+        """
+            Limit ATK Bonus
+        :param added_atk: add the atk. The atk cannot be higher than 8
+        :return:
+        """
+        self.hp += added_hp
+        if self.hp >= self.LIMIT_HP:
+            self.hp = self.LIMIT_HP
 
     def possible_move(self,x,y):
         """
@@ -108,7 +130,7 @@ class Pawn:
 
     def __repr__(self):
         active = 'a' if self.status == 1 else 'i'
-        return self.__class__.__name__[0] + str(self.player.color) + active + str(self.pawn_index) + 'k' + str(self.atk) + '+' + str(self.hp)
+        return self.__class__.__name__[0:2] + str(self.player.color) + active + str(self.pawn_index) + 'A' + str(self.atk) + 'H' + str(self.hp) +  'S' + str(self.step)
 
 class SoldierPawn(Pawn):
     def __init__(self, pawn_index, hp, atk, x, y, status, player, step):
@@ -129,10 +151,18 @@ class SoldierPawn(Pawn):
         """
         if promote_choice == 'Bishop': #Bishop
             self.add_step(1)
-            return BishopPawn(self.pawn_index,self.hp+2,self.atk+1,self.x,self.y, self.status, self.player, self.step)
+            self.add_atk(1)
+            self.hp = self.max_hp
+            self.add_hp(2)
+            return BishopPawn(self.pawn_index,self.hp,self.atk,self.x,self.y, self.status, self.player, self.step)
         if promote_choice == 'Knight': #Knight
-            return KnightPawn(self.pawn_index,self.hp,self.atk+3,self.x,self.y, self.status, self.player, self.step)
+            self.hp = self.max_hp
+            self.add_atk(3)
+            return KnightPawn(self.pawn_index,self.hp,self.atk,self.x,self.y, self.status, self.player, self.step)
         if promote_choice == 'Rook': #Rook
+            self.hp = self.max_hp
+            self.add_atk(2)
+            self.add_hp(2)
             return RookPawn(self.pawn_index,self.hp+2,self.atk+2,self.x,self.y, self.status, self.player, self.step)
 
     def move(self, new_x, new_y):
@@ -164,9 +194,13 @@ class BishopPawn(Pawn):
     def __init__(self, pawn_index,hp, atk, x, y,status, player, step):
         super().__init__(pawn_index,hp,atk,x,y, status, player, step)
         self.dir = [(1,1),(-1,-1),(1,-1),(-1,1)]
+
     def promote(self, promote_choice):
+        self.hp = self.max_hp
+        self.add_atk(2)
+        self.add_hp(2)
         if promote_choice == 'Queen': #Queen
-            return QueenPawn(self.pawn_index,self.hp+2,self.atk+2,self.x,self.y, self.status, self.player, self.step)
+            return QueenPawn(self.pawn_index,self.hp,self.atk,self.x,self.y, self.status, self.player, self.step)
 
     def possible_move(self):
         direction_move = self.dir
@@ -177,9 +211,13 @@ class RookPawn(Pawn):
     def __init__(self, pawn_index,hp, atk, x, y,status, player, step):
         super().__init__(pawn_index,hp,atk,x,y, status, player, step)
         self.dir = [(1,0),(0,1),(0,-1),(-1,0)]
+
     def promote(self, promote_choice):
+        self.hp = self.max_hp
+        self.add_atk(2)
+        self.add_hp(2)
         if promote_choice == 'Queen': #Queen
-            return QueenPawn(self.pawn_index,self.hp+2,self.atk+2,self.x,self.y, self.status, self.player, self.step)
+            return QueenPawn(self.pawn_index,self.hp,self.atk,self.x,self.y, self.status, self.player, self.step)
 
     def possible_move(self):
         direction_move = self.dir
@@ -245,6 +283,3 @@ class King(Pawn):
             possible_move_list.append((self.x + direction[0],self.y + direction[1], counter_dir_moves))
             counter_dir_moves += 1
         return super()._possible_move_promoted_helper(self.x,self.y,direction_move)
-
-    def __repr__(self):
-        return self.__class__.__name__[0] + str(self.player.color) + 'k' + str(self.atk) + '+' + str(self.hp)

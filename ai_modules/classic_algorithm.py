@@ -2,6 +2,8 @@ from random import shuffle
 from model.state import State
 from ai_modules.ai_elements import AIElements
 import time
+import random
+
 class MinimaxAgent:
     """
         Minimax agent
@@ -182,6 +184,7 @@ class RandomAgent:
         float, str:
             The evaluation or utility and the action key name
         """
+        import random
         list_action = AIElements.get_possible_action(state)
         key_list_action = list_action.keys()
         rand_int = random.randint(0,len(key_list_action)-1)

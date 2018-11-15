@@ -42,7 +42,7 @@ class AIElements:
         collected_action = state.get_possible_action_player() + state.get_possible_action_pawn() + state.get_possible_action_king()
         all_possible_action = AIElements._one_action(collected_action)
         if len(all_possible_action.keys()) == 0:
-            return {'skip' : {'action': 'skip'}} # skip if no action is available
+            return {'skip' : {'action': 'skip', 'player_index': state.get_player_turn()}} # skip if no action is available
         return all_possible_action
 
     def evaluation_function(state, player_color):

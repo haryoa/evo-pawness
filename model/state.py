@@ -4,6 +4,10 @@ from copy import deepcopy
 from pprint import pprint
 from model.rune import Rune
 import random
+from IPython.display import display, HTML
+import pandas as pd
+
+
 class State:
     """
     A model class used to represent our state.
@@ -101,41 +105,39 @@ class State:
 
         return eval_value
 
+    def sparse_eval(self, player_color):
+        """
+            Evaluation Function
+            The formula is:
+            1 is for the player to win
+            Parameters
+            ----------
+            player_color : the player_index
 
+            Returns
+            -------
+            int
+                how far is the advantage of a player
+        """
+        (player_king, enemy_king) = (self.white_king, self.black_king) if player_color == 0 else (self.black_king, self.white_king)
+        (current_player_pawn_list, enemy_pawn_list) = (self.white_pawn_list, self.black_pawn_list) if player_color == 0 else (self.black_pawn_list, self.white_pawn_list)
 
-    def reward_eval(self, player_color):
-        pass
+        if self.is_terminal():
+            if player_king.dead:
+                return -1
+            elif enemy_king.dead:
+                return 1
+            else:
+                util_value = 0
+                for player_pawn, enemy_pawn in zip(current_player_pawn_list,enemy_pawn_list):
+                    util_value += (int(enemy_pawn.dead) - int(player_pawn.dead))
+                if util_value < 0:
+                    util_value = -1
+                else:
+                    util_value = 1
+                return util_value
 
-    def get_dict_value_state(self):
-        returned_dict = {}
-
-        # Return all of white pawns
-        white_pawn_list_dict = []
-        for pawn in self.white_pawn_list:
-            white_pawn_list_dict.append(pawn.__dict__)
-        returned_dict['white_pawn_list'] = white_pawn_list_dict
-
-        # Return all of black pawns
-        black_pawn_list_dict = []
-        for pawn in self.black_pawn_list:
-            black_pawn_list_dict.append(pawn.__dict__)
-        returned_dict['black_pawn_list'] = black_pawn_list_dict
-
-        player_list_dict = []
-        for player in self.player_list:
-            player_list_dict.append(player.__dict__)
-        returned_dict['player_list'] = player_list_dict
-
-        rune_list_dict = []
-        for rune in self.rune_list:
-            rune_list_dict.append(rune.__dict__)
-        returned_dict['rune_list'] = rune_list_dict
-
-        returned_dict['white_king'] = self.white_king.__dict__
-        returned_dict['black_king'] = self.black_king.__dict__
-
-        return returned_dict
-
+        return 0
 
     def get_rune_list(self):
         """
@@ -179,22 +181,46 @@ class State:
             self.black_pawn_list.append(SoldierPawn(i,self.PAWN_HP_DEFAULT,self.PAWN_ATK_DEFAULT,i*2,1,False,self.player_list[1],self.PAWN_STEP_DEFAULT))
             self.board[i*2][1] = self.black_pawn_list[i]
 
-    def print_board(self):
+    def refresh_board(self):
+        """
+        Refresh the board array with the current situation
+        :return:
+        """
+        self.board = [[None for i in range(self.board_size)] for j in range(self.board_size)] # board to show the position of our pawns
+        self.board[4][8] = self.white_king
+        self.board[4][0] = self.black_king
 
+        for pawn in self.white_pawn_list:
+            if not pawn.dead:
+                self.board[pawn.x][pawn.y] = pawn
+
+        for pawn in self.black_pawn_list:
+            if not pawn.dead:
+                self.board[pawn.x][pawn.y] = pawn
+
+        # for rune in self.rune_list:
+        #     self.board[rune.x][rune.y] = rune
+
+    def print_board(self):
+        df_pr = [[None for i in range(self.board_size)] for j in range(self.board_size)]
+        pd.options.display.max_columns = 10
+        pd.options.display.max_rows = 1000
+        pd.options.display.width = 1000
         for i in range(self.board_size):
             for j in range(self.board_size):
                 need_to_pass = False
                 for rune in self.rune_list: # Print the rune if present
                     if j == rune.x and i == rune.y:
-                        print(rune, end=' ')
+                        # print(rune, end=' ')
+                        df_pr[i][j] = "Rune"
                         need_to_pass = True
                         pass
                 if not need_to_pass:
                     if self.board[j][i] is not None and self.board[j][i].dead == False:
-                        print(self.board[j][i], end=' ')
+                        df_pr[i][j] = self.board[j][i].__repr__()
                     else:
-                        print("Noo+onee", end=' ')
-            print('', end='\n')
+                        df_pr[i][j] = "Nones"
+        display(pd.DataFrame(df_pr))
 
     def get_possible_action_player(self):
         """
@@ -207,13 +233,15 @@ class State:
         # get player possible action
         player_possible_action = {}
         player = self.player_list[self.turn%2]
+        # print(player.__dict__)
         player_string = "White Player" if player.color == 0 else "Black Player"
         player_possible_action["actor"] = player_string
         ref_pawn = self.white_pawn_list if player.color == 0 else self.black_pawn_list
+        # print(ref_pawn[0].__dict__)
         dict_action = {}
         p_moves = player.possible_move(ref_pawn)
         for move in p_moves:
-            key_name = 'p' + str(player.color)
+            key_name = ""
             action_type = move[0]
             pawn_index = move[1]
             if action_type == 'promote':
@@ -221,9 +249,10 @@ class State:
             else:
                 key_name += 'a'
 
-            key_name += str(pawn_index)
             action_params = {}
             targetted_pawn = ref_pawn[pawn_index]
+            key_name += "*" + str(targetted_pawn.y) + "," +  str(targetted_pawn.x)
+
             if not targetted_pawn.dead:
                 action_params['pawn_hp'] = targetted_pawn.hp
                 action_params['pawn_atk'] = targetted_pawn.atk
@@ -236,7 +265,7 @@ class State:
                 if action_type == 'promote':
                     promoted_choice = move[2]
                     action_params['promoted_choice'] = promoted_choice
-                    key_name += promoted_choice[0]
+                    key_name += "*" + promoted_choice[0]
 
                 dict_action[key_name] = action_params
         player_possible_action["action"] = dict_action
@@ -253,13 +282,14 @@ class State:
         pawn_possible_action = {}
         player = self.player_list[self.turn%2]
         ref_pawn = self.white_pawn_list if player.color == 0 else self.black_pawn_list
-
+        # print(player)
+        # print(ref_pawn[0].__dict__)
         for pawn in ref_pawn:
             if not pawn.dead:
                 dict_action = {}
                 possible_action_iter = pawn.possible_move()['possible']
-                key_name_move_start = 'mp' + str(self.turn%2) + 'w' + str(pawn.pawn_index)
-                key_name_atk_start = 'ap' + str(self.turn%2) + 'w' + str(pawn.pawn_index)
+                key_name_move_start = 'mp*'
+                key_name_atk_start = 'mp*'
                 counter_loop_moves = 0
                 x_start = pawn.x
                 y_start = pawn.y
@@ -296,7 +326,10 @@ class State:
                                 'enemy_hp_after_attack' : pawn_target.hp - pawn.atk,
                                 'enemy_name' : pawn_target.__class__.__name__ + ' ' + ("White" if pawn_target.player.color == 0 else "Black") + " No. " + str(pawn_target.pawn_index)
                             }
-                            key_name_atk = key_name_atk_start + 'd' + str(dir_index)
+                            y_dir = y_end - y_start
+                            x_dir = x_end - x_start
+                            key_name_atk = key_name_atk_start + str(y_start) + ',' + str(x_start) + "*"
+                            key_name_atk += str(y_dir) + "," + str(x_dir)
                             dict_action[key_name_atk] = deepcopy(action_params)
                         elif not self._is_occupied_by_ally(x_end, y_end):
                             action_params = {
@@ -314,13 +347,46 @@ class State:
                                 'step' : step,
                                 'action' : 'move'
                             }
-                            key_name_move = key_name_move_start + 'd' + str(dir_index)
+                            y_dir = y_end - y_start
+                            x_dir = x_end - x_start
+                            key_name_move = key_name_move_start + str(y_start) + ',' + str(x_start) + "*"
+                            key_name_move += str(y_dir) + "," + str(x_dir)
                             dict_action[key_name_move] = deepcopy(action_params)
 
                 pawn_possible_action['actor'] = pawn.__class__.__name__ + ' ' + ("White" if player.color == 0 else "Black") + " No. " + str(pawn.pawn_index)
                 pawn_possible_action['action'] = deepcopy(dict_action)
             possible_action.append(deepcopy(pawn_possible_action))
         return possible_action
+
+    def get_dict_value_state(self):
+        returned_dict = {}
+
+        # Return all of white pawns
+        white_pawn_list_dict = []
+        for pawn in self.white_pawn_list:
+            white_pawn_list_dict.append(pawn.__dict__)
+        returned_dict['white_pawn_list'] = white_pawn_list_dict
+
+        # Return all of black pawns
+        black_pawn_list_dict = []
+        for pawn in self.black_pawn_list:
+            black_pawn_list_dict.append(pawn.__dict__)
+        returned_dict['black_pawn_list'] = black_pawn_list_dict
+
+        player_list_dict = []
+        for player in self.player_list:
+            player_list_dict.append(player.__dict__)
+        returned_dict['player_list'] = player_list_dict
+
+        rune_list_dict = []
+        for rune in self.rune_list:
+            rune_list_dict.append(rune.__dict__)
+        returned_dict['rune_list'] = rune_list_dict
+
+        returned_dict['white_king'] = self.white_king.__dict__
+        returned_dict['black_king'] = self.black_king.__dict__
+
+        return returned_dict
 
     def get_possible_action_king(self):
         """
@@ -336,8 +402,8 @@ class State:
         if not pawn.dead:
             dict_action = {}
             possible_action_iter = pawn.possible_move()['possible']
-            key_name_move_start = 'mp' + str(self.turn%2) + 'w' + str(pawn.pawn_index)
-            key_name_atk_start = 'ap' + str(self.turn%2) + 'w' + str(pawn.pawn_index)
+            key_name_move_start = 'mp*'
+            key_name_atk_start = 'mp*'
             counter_loop_moves = 0
             x_start = pawn.x
             y_start = pawn.y
@@ -374,7 +440,10 @@ class State:
                             'enemy_hp_after_attack' : pawn_target.hp - pawn.atk,
                             'enemy_name' : pawn_target.__class__.__name__ + ' ' + ("White" if pawn_target.player.color == 0 else "Black") + " No. " + str(pawn_target.pawn_index)
                         }
-                        key_name_atk = key_name_atk_start + 'd' + str(dir_index)
+                        y_dir = y_end - y_start
+                        x_dir = x_end - x_start
+                        key_name_atk = key_name_atk_start + str(y_start) + ',' + str(x_start) + "*"
+                        key_name_atk += str(y_dir) + "," + str(x_dir)
                         dict_action[key_name_atk] = deepcopy(action_params)
 
             pawn_possible_action['actor'] = pawn.__class__.__name__ + ' ' + ("White" if player.color == 0 else "Black") + " No. " + str(pawn.pawn_index)
@@ -409,9 +478,9 @@ class State:
 
         if self.turn % 5 == 0:
             self.rune_list = []
-            rune_list = [Rune() for i in range(2)]
+            rune_list = [Rune(1,0,0), Rune(0,1,0), Rune(0,0,1)]
             #coor_random = random.sample([(i,j) for i in range(9) for j in range(9) if self.board[i][j] is None],2)
-            coor_random = [(0, 4), (8, 4)]
+            coor_random = [(0, 4), (4, 4),  (8, 4)]
             counter_loop = 0
             for coor in coor_random:
                 pawn_target = self.board[coor[0]][coor[1]]
@@ -507,9 +576,8 @@ class State:
 
         for rune in self.rune_list:
             if new_x == rune.x and new_y == rune.y:
-                rune.buff_pawn(pawn)
+                rune.buff_pawn(pawn,randoming=False)
                 self.rune_list.remove(rune)
-
 
     def activate_pawn(self, player_color, pawn_index):
         """
@@ -542,3 +610,22 @@ class State:
         # update list
         targetted_pawn_list[pawn_index] = promoted_pawn
         self.board[promoted_pawn.x][promoted_pawn.y] = promoted_pawn
+
+    def __repr__(self):
+        returned_string = "p"
+        for i in range(self.board_size):
+            for j in range(self.board_size):
+                need_to_pass = False
+                for rune in self.rune_list: # Print the rune if present
+                    if j == rune.x and i == rune.y:
+                        returned_string += "rn"
+                        need_to_pass = True
+                        pass
+                if not need_to_pass:
+                    if self.board[j][i] is not None and self.board[j][i].dead == False:
+                        returned_string += self.board[j][i].__repr__() + str(self.board[j][i].x) + str(self.board[j][i].y)
+                    else:
+                        pass
+            returned_string += str(self.player_list[0].mana) + str(self.player_list[1].mana)
+            returned_string += str(self.turn % 5)
+        return returned_string
