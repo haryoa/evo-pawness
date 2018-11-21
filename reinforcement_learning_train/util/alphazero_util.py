@@ -331,7 +331,7 @@ def action_spaces_new(board_size=9,max_step = 3):
                 move_coor = "mp*{},{}*{},{}".format(i,j,dir_i,dir_j)
                 all_list_action.append(move_coor)
 
-    all_list_action.append('pass')
+    all_list_action.append('skip')
     return all_list_action
 
 

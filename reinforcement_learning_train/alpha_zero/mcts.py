@@ -5,10 +5,13 @@ from copy import deepcopy
 import random
 import numpy as np
 
+from reinforcement_learning_train.util.alphazero_util import mirror_stacked_state
+from reinforcement_learning_train.util.stacked_state import StackedState
+
 
 class NodeMCTS():
-    def __init__(self, stacked_state, parent=None, root=False):
-        self.stacked_state = stacked_state
+    def __init__(self, stacked_state, parent=None, root=False, maximizer=0):
+        self.stacked_state:StackedState = stacked_state
         self.num_state = 0
         self.parent = parent
         self.q_state_action = {}  # action : q
@@ -20,6 +23,7 @@ class NodeMCTS():
         self.is_terminal = False
         self.v = 0  # Init
         self.root = root
+        self.maximizer = maximizer
 
     def expand_node(self, model_deep_net, player_color, label_encoder, epsilon=0.25, alpha_diri=0.3, cpuct=1, greed_attack = False):
 
@@ -30,11 +34,19 @@ class NodeMCTS():
             possible_action_keys = list(possible_action.keys())
 
             if self.p_state is None:
-                state_stack_representation = np.array([self.stacked_state.get_deep_representation_stack()])
-                self.p_state, self.v = model_deep_net.predict(state_stack_representation)  # TODO : fix this one
+                if self.stacked_state.head.get_player_turn() == self.maximizer:
+                    state_stack_representation = np.array([self.stacked_state.get_deep_representation_stack()])
+                else:
+                    state_stack_representation = mirror_stacked_state(self.stacked_state)
+                    state_stack_representation = np.array([state_stack_representation.get_deep_representation_stack()])
+
+                self.p_state, self.v = model_deep_net.predict(state_stack_representation)  # TODO : MIRROR INTO MAX
                 self.v_ = self.v[0][0]
                 self.v = self.v[0][0]
                 self.p_state = self.p_state[0]
+
+                if self.stacked_state.head.get_player_turn() != self.maximizer:
+                    self.p_state = label_encoder.array_mirrored(self.p_state)
                 possible_action_ohe = label_encoder.transform(possible_action_keys).sum(axis=0)
                 self.p_state *= possible_action_ohe
                 sum_policy_state = np.sum(self.p_state)
@@ -104,7 +116,7 @@ class NodeMCTS():
                 self.selected_action = best_action
 
         else:
-            self.v = self.stacked_state.head.sparse_eval(player_color)
+            self.v = self.stacked_state.head.sparse_eval(self.stacked_state.head.get_player_turn())
 
     def evaluate_value(self, model_deep_net):
         """
@@ -191,7 +203,8 @@ class MCTreeSearch():
         return probability
 
     def update_root(self, action_key):
-        self.root = self.root.edge_action[action_key]
+        self.root:NodeMCTS = self.root.edge_action[action_key]
+        self.root.root = True
         self.root.parent = None  # omitted
 
     def is_terminal(self):

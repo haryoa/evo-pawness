@@ -10,7 +10,7 @@ class AlphaZeroAgent:
     """
         Minimax agent
     """
-    def __init__(self,init_state, player_color, max_simulation=20):
+    def __init__(self,init_state, player_color, max_simulation=10, MODEL_PATH = "checkpoint.hdf5"):
         """
         Initiation
 
@@ -22,7 +22,6 @@ class AlphaZeroAgent:
         player_color : int
             The player's index as MAX in minimax algorithm
         """
-        MODEL_PATH = "checkpoint.hdf5"
         self.max_simulation = max_simulation
         self.player_color = player_color
         all_action_spaces = action_spaces_new()
@@ -54,7 +53,7 @@ class AlphaZeroAgent:
         from ai_modules.ai_elements import AIElements
         import numpy as np
         self.mcts.self_play_till_leaf()
-        action_proba = np.array(self.mcts.get_action_proba())
+        action_proba = np.array(self.mcts.get_action_proba(temperature=0))
         action = np.random.choice(len(action_proba), p=action_proba)
         action_key = self.ae.inverse_transform([action])[0]
         possible_action = AIElements.get_possible_action(self.stacked_state.head)

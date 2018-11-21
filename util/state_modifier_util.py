@@ -96,3 +96,6 @@ def get_key_mirror_action(input_key_action:str):
     
     elif input_key_action == "pass":
         return "pass"
+
+    elif input_key_action == "skip":
+        return "skip"

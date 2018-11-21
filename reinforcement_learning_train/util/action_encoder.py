@@ -44,12 +44,10 @@ class ActionEncoder():
         import numpy as np
         new_array = np.zeros_like(array)
         index_np = np.where(array > 0)[0]
-        print(index_np)
         new_index = []
         for z in index_np:
             new_index.append(self.dict_index_act_to_mirror_index[int(z)][0])
         new_index = np.array(new_index)
         # index_new = np.apply_along_axis(lambda x: self.dict_index_act_to_mirror_index[x], 0, index_np)
-        print(new_index)
         new_array[new_index] = array[index_np]
         return new_array
