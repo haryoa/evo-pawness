@@ -176,9 +176,10 @@ def do_self_play_episode(stacked_state, mcts , ae:ActionEncoder, greed=False, ma
         if terminal:
             # Update the reward in list_training
             mcts.self_play_till_leaf()  # to fill the v variable
-            reward = mcts.root.v
+            reward = mcts.root.v # reward should be -1
+            loser_player = stacked_state.head.get_player_turn()
             for i in list_training:
-                if i.current_player == maximizer:
+                if i.current_player == loser_player:
                     i.reward = reward
                 else:
                     i.reward = -reward

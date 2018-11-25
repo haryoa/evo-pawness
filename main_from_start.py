@@ -21,6 +21,7 @@ def main():
     global_list_training = deque(maxlen=9000)
     ae = ActionEncoder()
     ae.fit(list_all_action=all_action_spaces)
+    print(deepnet_model.model.summary())
     fit_train(global_list_training,ae, deepnet_model, 60, 50)
     deepnet_model.model.save("best_model.hdf5")
 
