@@ -119,18 +119,10 @@ class AIElements:
         new_state.change_turn()
         return new_state
 
-    ## state
-    ## possible -> action
-    ## result_fuction -> state'
-    ## possible -> action
-    ## get_opponent_action(state') -> state''
-    ## reward_func(state, state', state'')
-    ## state'' - state'
-    ## 0.5, 0.8, 1
-    def reward_function(old_state, new_state, player_color, middle_state = None):
+
+    def experimental_reward_function(old_state, new_state, player_color):
         '''
-        Current Formula : old_state_evaluation_function - new_state_evaluation_function
-        Parameters
+        Experimental Reward Function
         ----------
         old_state: State
             the state
@@ -142,15 +134,31 @@ class AIElements:
         return new_state.total_eval(player_color) - old_state.total_eval(player_color)
 
     def get_state_dict(state):
+        """
+        Get the dictionary of the state
+        :return: dict
+        """
         return state.get_dict_value_state()
 
     def get_players_mana(state):
+        """
+        Return the tuple contains mana of each players.
+        :return: tuple
+        """
         return state.get_players_mana()
 
     def debug_print_board(state):
+        """
+        Print the board in state using pd.DataFrame
+        :return:
+        """
         state.print_board()
 
     def get_rune_information(state):
+        """
+        Get the rune information
+        :return: dict
+        """
         return state.get_rune_list()
 
     def is_over(state):

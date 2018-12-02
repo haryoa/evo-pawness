@@ -202,6 +202,11 @@ class State:
         #     self.board[rune.x][rune.y] = rune
 
     def print_board(self):
+        """
+        Print the board with the help of pandas DataFrame..
+        Well it sounds stupid.. anyway, it has a nice display, right?
+        :return:
+        """
         df_pr = [[None for i in range(self.board_size)] for j in range(self.board_size)]
         pd.options.display.max_columns = 10
         pd.options.display.max_rows = 1000
@@ -359,6 +364,10 @@ class State:
         return possible_action
 
     def get_dict_value_state(self):
+        """
+        Return the dict contains the information on the current state
+        :return: dict
+        """
         returned_dict = {}
 
         # Return all of white pawns
@@ -495,9 +504,17 @@ class State:
                 counter_loop += 1
 
     def get_players_mana(self):
+        """
+        Get the players mana in tuple
+        :return: tuple
+        """
         return (self.player_list[0].mana,self.player_list[1].mana)
 
     def get_player_turn(self):
+        """
+        Get the players turn
+        :return: int
+        """
         return self.turn % 2
 
     def _is_occupied_by_enemy(self, x_new, y_new):

@@ -2,12 +2,24 @@ from model.pawn import Pawn
 
 
 def mirror_coordinates(x,y, y_axis_coor = 4):
+    """
+    Add reflective or mirror coordinate for the input coordinate based on the y-axis.
+    :param x: the x-axis of the coordinate
+    :param y: the y-axis of the coordinate
+    :param y_axis_coor: The center of the y-axis
+    :return: the tuple of x,y mirrored coordinate
+    """
     y -= y_axis_coor
     y *= -1
     y += y_axis_coor
     return (x,y)
 
 def object_change_coordinates(pawn):
+    """
+    Change the pawn x and y coordinates into the mirrored one
+    :param pawn: the object that want to be mirrored
+    :return:
+    """
     (x_new,y_new) = mirror_coordinates(pawn.x, pawn.y)
     pawn.x = x_new
     pawn.y = y_new
@@ -15,10 +27,11 @@ def object_change_coordinates(pawn):
 
 def mirror_state(input_state):
     """
+    Mirror the state. It will mirror the coordinates of all the pawns and kings.
+    After that, it will change the color to the opposite of the pawn's' oolor.
 
     :param state: State
-        Test
-    :return:
+    :return: mirrored state
     """
     from copy import deepcopy
     # iterate through pawn
@@ -44,7 +57,8 @@ def mirror_state(input_state):
 
 def get_key_mirror_action(input_key_action:str):
     """
-
+    Mirror the key name of action. It will mirror the coordinates.
+    Also mirror the direction of move if the action is move or attack.
     :param input_key_action:
     :return:
     """

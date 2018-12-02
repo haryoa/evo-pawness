@@ -5,11 +5,15 @@ from copy import deepcopy
 import random
 import numpy as np
 
+from config import AlphaZeroConfig
 from reinforcement_learning_train.util.alphazero_util import mirror_stacked_state
 from reinforcement_learning_train.util.stacked_state import StackedState
 
 
 class NodeMCTS():
+    """
+        Node in the tree
+    """
     def __init__(self, stacked_state, parent=None, root=False, maximizer=0):
         self.stacked_state:StackedState = stacked_state
         self.num_state = 0
@@ -25,8 +29,23 @@ class NodeMCTS():
         self.root = root
         self.maximizer = maximizer
 
-    def expand_node(self, model_deep_net, player_color, label_encoder, epsilon=0.25, alpha_diri=0.3, cpuct=1, greed_attack = False):
-
+    def expand_node(self, model_deep_net, player_color, label_encoder,
+                    epsilon=AlphaZeroConfig.MCTS_EPSILON,
+                    alpha_diri=AlphaZeroConfig.MCTS_ALPHA_DIRICHLET,
+                    cpuct=AlphaZeroConfig.MCTS_PUCT,
+                    greed_attack = False):
+        """
+        This function contains 2 steps on the MCTS.
+        Select and Expand & Evaluate
+        :param model_deep_net: The neural network model
+        :param player_color: why did I include this???
+        :param label_encoder: The encoder used to encode the action key
+        :param epsilon: hyperparameter for using the dirichlet random proba
+        :param alpha_diri: hyperparameter of dirichlet
+        :param cpuct: hyperparameter of the MCTS in alpha zero
+        :param greed_attack: HACK! the agent will prioritize attacking and promoting
+        :return:
+        """
         terminal = AIElements.is_over(self.stacked_state.head)
         self.is_terminal = terminal
         if not terminal:
@@ -34,13 +53,16 @@ class NodeMCTS():
             possible_action_keys = list(possible_action.keys())
 
             if self.p_state is None:
+                """
+                    Expand and Evaluate goes here!
+                """
                 if self.stacked_state.head.get_player_turn() == self.maximizer:
                     state_stack_representation = np.array([self.stacked_state.get_deep_representation_stack()])
                 else:
                     state_stack_representation = mirror_stacked_state(self.stacked_state)
                     state_stack_representation = np.array([state_stack_representation.get_deep_representation_stack()])
 
-                self.p_state, self.v = model_deep_net.predict(state_stack_representation)  # TODO : MIRROR INTO MAX
+                self.p_state, self.v = model_deep_net.predict(state_stack_representation)
                 self.v_ = self.v[0][0]
                 self.v = self.v[0][0]
                 self.p_state = self.p_state[0]
@@ -69,6 +91,9 @@ class NodeMCTS():
                         self.edge_action[action] = NodeMCTS(new_stacked_state, parent=self, root=False)
 
             else:
+                """
+                    Select goes here
+                """
                 best_action = ""
                 best_upper_confidence = -float('inf')
 
@@ -97,9 +122,9 @@ class NodeMCTS():
                                            cpuct * self.p_state[index_action] * \
                                            np.sqrt(self.num_state) / (1 + num_state_action_val)
                     if greed_attack and possible_action[action]['action'] == 'attack':
-                        upper_confidence += 0.6 # Higher Chance to Attack
+                        upper_confidence += AlphaZeroConfig.Q_ATTACK_GREEDY # Higher Chance to Attack
                     if greed_attack and possible_action[action]['action'] == 'promote':
-                        upper_confidence += 0.5 # Higher Chance to promote
+                        upper_confidence += AlphaZeroConfig.Q_PROMOTE_GREEDY # Higher Chance to promote
                     counter_loop += 1
                     if best_upper_confidence < upper_confidence:
                         best_upper_confidence = upper_confidence
@@ -118,17 +143,11 @@ class NodeMCTS():
         else:
             self.v = self.stacked_state.head.sparse_eval(self.stacked_state.head.get_player_turn())
 
-    def evaluate_value(self, model_deep_net):
-        """
-            Called if the terminal state is reached. Do it AFTER call expand_node
-        """
-        state_stack_representation = np.array([self.stacked_state.get_deep_representation_stack()])
-
-        _, v_predict = model_deep_net.predict(state_stack_representation)
-
     def backfill(self):
         """
-            Called if the terminal state is reached. Update all parents parameters
+            Called if the terminal state is reached.
+            Update all parents parameters.
+            This is the Backup Step
         """
         current_node = self
         while current_node.parent is not None:
@@ -151,6 +170,9 @@ class NodeMCTS():
 
 
 class MCTreeSearch():
+    """
+        Class for simulating the MCTS
+    """
     def __init__(self, model_deep_net, cpuct, number_of_simulation, label_encoder, init_state_stack):
         self.model_deep_net = model_deep_net
         self.root = NodeMCTS(init_state_stack, root=True)
@@ -158,36 +180,37 @@ class MCTreeSearch():
         self.cpuct = cpuct
         self.label_encoder = label_encoder
 
-    def self_play_till_leaf(self, greed_attack = False):
+    def self_play(self, greed_attack = False):
+        """
+        Simulate the MCTS until the defined number of simulation
+        :param greed_attack:
+        :return:
+        """
         for i in range(self.number_of_simulation):
-            # print("----------------")
-            # print("Current_Self_Play %d" % (i))
             node_check = self.root
             current_player = node_check.stacked_state.head.get_player_turn()
             end_loop = False
             while not end_loop:
                 if node_check.p_state is None:
+                    # Select and backup
                     node_check.expand_node(self.model_deep_net, current_player, self.label_encoder, cpuct=self.cpuct, greed_attack=greed_attack)
                     node_check.backfill()
                     end_loop = True
-                    # print("Done Filling")
-                    #
-                    # print("Evaluation in this Leaf %s " % (node_check.v))
-                    # print("Turn start simulation %d" % (self.root.stacked_state.head.turn))
-                    # print("Q a s : %s" % (str(self.root.q_state_action)))
-                    # print("Turn in simulation ended in this leaf %d" % (node_check.stacked_state.head.turn))
-                    # print("Player %d" % (current_player))
-                    # print("Stacked Length %d" % (len(node_check.stacked_state.deque_collection)))
-                    # print("Eval %d" % (AIElements.evaluation_function(node_check.stacked_state.head, current_player)))
                 else:
+                    # Expand and Evaluate
                     node_check.expand_node(self.model_deep_net, current_player, self.label_encoder, cpuct=self.cpuct, greed_attack=greed_attack)
                     node_check = node_check.edge_action[node_check.selected_action]
-        print("Simulation Ended in %d" % (self.number_of_simulation))
+        print("Simulation End, num of simulation = %d" % (self.number_of_simulation))
 
     def get_action_proba(self, temperature=1):
-        print("Label Encoder shape is {}".format(len(self.label_encoder.le.classes_)))
+        """
+        Get the probability distribution of the action on the current root based on the
+        temperature.
+        :param temperature: used on controlling the probability of actions.
+        :return:
+        """
         counts = [self.root.num_state_action[action] if action
-                                                        in self.root.num_state_action else 0 for action in
+                in self.root.num_state_action else 0 for action in
                   self.label_encoder.le.classes_]
         if temperature == 0:
             best_action = np.argmax(counts)
@@ -203,9 +226,19 @@ class MCTreeSearch():
         return probability
 
     def update_root(self, action_key):
+        """
+        Update the root based on the action key. The action key must be present
+        in the edge of the current root.
+        :param action_key:
+        :return:
+        """
         self.root:NodeMCTS = self.root.edge_action[action_key]
         self.root.root = True
         self.root.parent = None  # omitted
 
     def is_terminal(self):
+        """
+        Check whether the root is already terminal
+        :return:
+        """
         return self.root.is_terminal

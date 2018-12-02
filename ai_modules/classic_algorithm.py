@@ -3,7 +3,7 @@ from model.state import State
 from ai_modules.ai_elements import AIElements
 import time
 import random
-
+from config import MinimaxABConfig
 class MinimaxAgent:
     """
         Minimax agent
@@ -23,6 +23,12 @@ class MinimaxAgent:
         self.max_depth = max_depth
         self.player_color = player_color
         self.node_expanded = 0
+
+    def enemy_turn_action(self, action_key, new_state):
+        """
+        Nothing to do here
+        """
+        pass
 
     def choose_action(self, state):
         """
@@ -47,7 +53,13 @@ class MinimaxAgent:
         return (selected_key_action,list_action[selected_key_action])
 
     def _minimax(self, current_depth, state, is_max_turn):
-
+        """
+        Minimax Helper
+        :param current_depth: the current tree depth in the recursion
+        :param state: the current state in the tree node
+        :param is_max_turn: bool check the current's node maximizer or not?
+        :return:
+        """
         if current_depth == self.max_depth or state.is_terminal():
             return AIElements.evaluation_function(state, self.player_color), ""
 
@@ -75,9 +87,9 @@ class MinimaxAgent:
 
 class MinimaxABAgent:
     """
-        Minimax agent
+        Minimax agent with Alpha Beta Pruning
     """
-    def __init__(self, max_depth, player_color):
+    def __init__(self, max_depth=MinimaxABConfig.MAX_DEPTH, player_color=0):
         """
         Initiation
 
@@ -93,9 +105,15 @@ class MinimaxABAgent:
         self.player_color = player_color
         self.node_expanded = 0
 
+    def enemy_turn_action(self, action_key, new_state):
+        """
+        Nothing to do here
+        """
+        pass
+
     def choose_action(self, state):
         """
-        Predict the move using minimax algorithm
+        Predict the move using minimax alpha beta pruning algorithm
 
         Parameters
         ----------
@@ -119,7 +137,15 @@ class MinimaxABAgent:
         return (selected_key_action,list_action[selected_key_action])
 
     def _minimax(self, current_depth, state, is_max_turn, alpha, beta):
-
+        """
+        Helper function of minimax
+        :param current_depth: The current depth on the tree in recursive
+        :param state: State of the current node in recursive
+        :param is_max_turn: Check if the current node is the max turn in recursive
+        :param alpha: parameter of AB Prunning, save the current maximizer best value
+        :param beta: parameter of AB Prunning, save the current minimizer best value
+        :return: int , str The value of the best action and the name of the action
+        """
         if current_depth == self.max_depth or state.is_terminal():
             return AIElements.evaluation_function(state, self.player_color), ""
 
@@ -128,7 +154,7 @@ class MinimaxABAgent:
         possible_action = AIElements.get_possible_action(state)
         key_of_actions = list(possible_action.keys())
 
-        shuffle(key_of_actions) #randomness
+        shuffle(key_of_actions) # add randomness here
         best_value = float('-inf') if is_max_turn else float('inf')
         action_target = ""
         for action_key in key_of_actions:
@@ -154,9 +180,9 @@ class MinimaxABAgent:
 
 class RandomAgent:
     """
-        Minimax agent
+        Random Random
     """
-    def __init__(self, max_depth, player_color):
+    def __init__(self, max_depth=2, player_color=1):
         """
         Initiation
 
@@ -171,9 +197,15 @@ class RandomAgent:
         self.max_depth = max_depth
         self.player_color = player_color
 
+    def enemy_turn_action(self, action_key, new_state):
+        """
+        Nothing to do here
+        """
+        pass
+
     def choose_action(self, state):
         """
-        Predict the move using minimax algorithm
+        Predict the move with uniform proba random.
 
         Parameters
         ----------
@@ -190,22 +222,3 @@ class RandomAgent:
         rand_int = random.randint(0,len(key_list_action)-1)
         selected_key_action = list(key_list_action)[rand_int]
         return (selected_key_action,list_action[selected_key_action])
-
-
-# if __name__ == '__main__':
-#     state = State()
-#     state.initial_state()
-#
-#     ga = GameAI()
-#     possible = AIElements.get_possible_action(state)
-#     action_key, action_dict = ga.choose_action(state, possible)
-#     state = AIElements.result_function(state, possible[action_key])
-#
-#     # [4]
-#     minimax = MinimaxAgent(max_depth=5,player_color=0)
-#     %timeit -n 1 -r 1 print(minimax.choose_action(state))
-#
-#     # []
-#     print("aha")
-#     minimaxab = MinimaxABAgent(max_depth=6,player_color=0)
-#     %timeit -n 1 -r 1 print(minimaxab.choose_action(state))

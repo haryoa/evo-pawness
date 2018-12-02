@@ -2,7 +2,15 @@ from keras.models import *
 from keras.layers import *
 from keras.optimizers import *
 
+from config import AlphaZeroConfig
+
+
 class PawnNet():
+    """
+    My first neural network architecture.
+    Using the architecture provided here:
+    https://web.stanford.edu/~surag/posts/alphazero.html
+    """
     def __init__(self, action_size, args, board_x=9, board_y =9, num_channels_feature = 19*5):
         # game params
         self.board_x, self.board_y = board_x, board_y
@@ -26,17 +34,26 @@ class PawnNet():
         self.model.compile(loss=['categorical_crossentropy','mean_squared_error'], optimizer=Adam(args['lr']))
 
 class PawnNetZero():
+    """
+    The neural network architecture that I use right now.
+    Using the architecture provided here:
+    https://github.com/AppliedDataSciencePartners/DeepReinforcementLearning
+    With some modification
+    """
     def __init__(self,action_size, board_x=9, board_y =9, num_channels_feature = 28*5):
         self.board_x, self.board_y = board_x, board_y
         self.action_size = action_size
 
         self.input_boards = Input(shape=(self.board_x, self.board_y,num_channels_feature))    # s: batch_size x board_x x board_y
-        x = Conv2D(filters=199, kernel_size=(4,4), padding='same', activation='linear')(self.input_boards)
+        x = Conv2D(filters=AlphaZeroConfig.FILTERS_CNN_RESIDUAL,
+                   kernel_size=AlphaZeroConfig.KERNEL_SIZE_RESIDUAL,
+                   padding='same', activation='linear')(self.input_boards)
 
         x = BatchNormalization(axis=3)(x)
         x = LeakyReLU()(x)
-        for _ in range(4):
-            x = self.residual_layer(x, 199, (4,4))
+        for _ in range(AlphaZeroConfig.NUMBER_OF_RESIDUAL):
+            x = self.residual_layer(x, AlphaZeroConfig.FILTERS_CNN_RESIDUAL,
+                                    AlphaZeroConfig.KERNEL_SIZE_RESIDUAL)
         self.value_head = self.value_head(x)
         self.policy_head = self.policy_head(x)
 
@@ -57,6 +74,14 @@ class PawnNetZero():
         return (x)
 
     def residual_layer(self, input_block, filters, kernel_size):
+        """
+        The residual layer
+
+        :param input_block: input of CNN
+        :param filters: how many filters?
+        :param kernel_size: the kernel of the CNN
+        :return:
+        """
         x = self.conv_layer(input_block, filters, kernel_size)
 
         x = Conv2D(
@@ -75,9 +100,16 @@ class PawnNetZero():
         return (x)
 
     def value_head(self, x):
+        """
+        The value head that will be optimized with the reward as the target
+        Using tanh as the activation function.
+
+        :param x: the input from the residual layer
+        :return:
+        """
         x = Conv2D(
-            filters=1
-            , kernel_size=(1, 1)
+            filters=AlphaZeroConfig.VALUE_HEAD_FILTER_CNN
+            , kernel_size=AlphaZeroConfig.VALUE_HEAD_KERNEL_SIZE
             , padding='same'
             , activation='linear'
         )(x)
@@ -88,7 +120,7 @@ class PawnNetZero():
         x = Flatten()(x)
 
         x = Dense(
-            180
+            AlphaZeroConfig.VALUE_HEAD_DENSE_UNITS
             , activation='linear'
         )(x)
 
@@ -103,10 +135,16 @@ class PawnNetZero():
         return (x)
 
     def policy_head(self, x):
+        """
+            The policy head that will be optimized with the action prob as the target.
+            Using softmax as the activation function.
 
+            :param x: the input from the residual layer
+            :return:
+        """
         x = Conv2D(
-        filters = 2
-        , kernel_size = (1,1)
+        filters = AlphaZeroConfig.POLICY_HEAD_FILTER_CNN
+        , kernel_size = AlphaZeroConfig.POLICY_HEAD_KERNEL_SIZE
         , padding = 'same'
         , activation='linear'
         )(x)

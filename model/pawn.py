@@ -134,6 +134,7 @@ class Pawn:
 
 class SoldierPawn(Pawn):
     def __init__(self, pawn_index, hp, atk, x, y, status, player, step):
+
         super().__init__(pawn_index,hp,atk,x,y, status, player, step)
         if player.color == 0:
             self.dir = [(0,-1)]
@@ -261,9 +262,6 @@ class King(Pawn):
         self.pawn_index = -1
         self.pawn_type = self.__class__.__name__
 
-
-    def tep(self, added_step):
-        self.step = 0
 
     def attack_enemy(self, enemy_pawn):
         """

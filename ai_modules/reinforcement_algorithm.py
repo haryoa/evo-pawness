@@ -3,27 +3,24 @@ from reinforcement_learning_train.alpha_zero.mcts import MCTreeSearch
 from reinforcement_learning_train.util.action_encoder import ActionEncoder
 from reinforcement_learning_train.util.stacked_state import StackedState
 from keras.models import load_model
-from reinforcement_learning_train.util.alphazero_util import action_spaces, action_spaces_new
+from reinforcement_learning_train.util.alphazero_util import action_spaces_new
 from copy import deepcopy
-
+from config import AlphaZeroConfig
 class AlphaZeroAgent:
     """
-        Minimax agent
+        AlphaZero agent. The agent uses AlphaZero algorithm which uses Monte Carlo Tree Search
     """
-    def __init__(self,init_state, player_color, max_simulation=10, MODEL_PATH = "checkpoint.hdf5"):
+    def __init__(self,
+                 init_state,
+                 max_simulation=AlphaZeroConfig.MAX_SIMULATION_AGENT,
+                 MODEL_PATH=AlphaZeroConfig.DEFAULT_MODEL_AGENT):
         """
-        Initiation
-
-        Parameters
-        ----------
-        max_depth : int
-            The max depth of the tree
-
-        player_color : int
-            The player's index as MAX in minimax algorithm
+        Contructor of AlphaZero Agent
+        :param init_state: the initial state of the game. It will be used continuously
+        :param max_simulation: MCTS max simulation
+        :param MODEL_PATH: Model Path used for AlphaZero Agent
         """
         self.max_simulation = max_simulation
-        self.player_color = player_color
         all_action_spaces = action_spaces_new()
         self.ae = ActionEncoder()
         self.ae.fit(list_all_action=all_action_spaces)
@@ -33,26 +30,33 @@ class AlphaZeroAgent:
         self.mcts = MCTreeSearch(self.deepnet_model.model, 1, self.max_simulation, self.ae, self.stacked_state)
 
     def enemy_turn_action(self, action_key, new_state):
-        self.mcts.self_play_till_leaf()
+        """
+        Must be used in the enemy's turn.
+        It will update the root of the MCTS to match the state of the game.
+
+        TODO: do result function in this method
+        :param action_key: Action of the opponent
+        :param new_state: The new state that is the result of enemy's action
+        :return:
+        """
+        self.mcts.self_play()
         self.stacked_state.append(deepcopy(new_state))
         self.mcts.update_root(action_key)
 
     def choose_action(self, state):
         """
-        Predict the move using minimax algorithm
+        Predict the move using AlphaZero algorithm
 
         Parameters
         ----------
         state : State
-
-        Returns
-        -------
+            unused. The purpose of this parameter is to match the other class.
         float, str:
             The evaluation or utility and the action key name
         """
         from ai_modules.ai_elements import AIElements
         import numpy as np
-        self.mcts.self_play_till_leaf()
+        self.mcts.self_play()
         action_proba = np.array(self.mcts.get_action_proba(temperature=0))
         action = np.random.choice(len(action_proba), p=action_proba)
         action_key = self.ae.inverse_transform([action])[0]

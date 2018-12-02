@@ -2,9 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70a6a653-6462-4ed3-bb86-a42fcb884620" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai_modules/ai_elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_modules/ai_elements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai_modules/classic_algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_modules/classic_algorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai_modules/reinforcement_algorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai_modules/reinforcement_algorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/game_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/game_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_from_start.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_from_start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/pawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/pawn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/state.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py" beforeDir="false" afterPath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/main_from_continue.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/main_from_start.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/mcts.py" beforeDir="false" afterPath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/mcts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/train_module.py" beforeDir="false" afterPath="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/train_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/no01_pure_deep_q_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/reinforcement_learning_train/no01_pure_deep_q_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/util/action_encoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/reinforcement_learning_train/util/action_encoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/util/alphazero_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/reinforcement_learning_train/util/alphazero_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reinforcement_learning_train/util/stacked_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/reinforcement_learning_train/util/stacked_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/state_modifier_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/state_modifier_util.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +33,7 @@
     <session id="503959835">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="21" />
+          <entry key="project.closed" value="24" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.11" value="1" />
@@ -25,43 +42,44 @@
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.19" value="2" />
           <entry key="project.open.time.24" value="2" />
+          <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.3" value="3" />
-          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.79" value="1" />
           <entry key="project.open.time.9" value="1" />
           <entry key="project.open.time.95" value="1" />
-          <entry key="project.opened" value="24" />
+          <entry key="project.opened" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="ipynb" value="4" />
           <entry key="md" value="1" />
-          <entry key="py" value="91" />
+          <entry key="py" value="142" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IPNB" value="4" />
           <entry key="Markdown" value="1" />
-          <entry key="Python" value="90" />
+          <entry key="Python" value="141" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="1866" />
-          <entry key="dummy" value="111" />
-          <entry key="py" value="16705" />
+          <entry key="dummy" value="128" />
+          <entry key="py" value="34598" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="111" />
-          <entry key="Python" value="17636" />
+          <entry key="PLAIN_TEXT" value="128" />
+          <entry key="Python" value="35529" />
           <entry key="Scratch" value="935" />
         </counts>
       </usages-collector>
@@ -73,11 +91,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/train_module.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="181" column="52" selection-start-line="181" selection-start-column="52" selection-end-line="181" selection-end-column="52" />
+            <state relative-caret-position="476">
+              <caret line="106" column="24" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="24" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1543137307487" expanded="true" signature="3447:5205" ph="..." />
+                <marker date="1543765482413" expanded="true" signature="4686:6423" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ai_modules/reinforcement_algorithm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="422">
+              <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#85#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,72 +116,69 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/stacked_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
-              <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
+            <state relative-caret-position="-363">
+              <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_from_continue.py">
+        <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/mcts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="3553">
+              <caret line="218" column="30" selection-start-line="218" selection-start-column="30" selection-end-line="218" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="28">
+              <caret line="93" column="23" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#41#59#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_from_start.py">
+        <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+            <state relative-caret-position="1292">
+              <caret line="76" column="11" selection-start-line="76" selection-start-column="11" selection-end-line="76" selection-end-column="11" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
+                <marker date="1543763961446" expanded="true" signature="2483:2488" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py">
+        <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="39" column="44" lean-forward="true" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+            <state relative-caret-position="538">
+              <caret line="111" column="24" lean-forward="true" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <marker date="1541586520976" expanded="true" signature="2070:2075" ph="..." />
+                <marker date="1543766060838" expanded="true" signature="22:23" ph="..." />
+                <marker date="1543766060838" expanded="true" signature="2557:2770" ph="..." />
+                <marker date="1543766060838" expanded="true" signature="2792:2793" ph="..." />
+                <marker date="1543766060838" expanded="true" signature="2994:2999" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/player.py">
+        <entry file="file://$PROJECT_DIR$/ai_modules/classic_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="912">
-              <caret line="59" column="80" lean-forward="true" selection-start-line="59" selection-start-column="80" selection-end-line="59" selection-end-column="80" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/rune.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/state.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2278">
-              <caret line="250" selection-start-line="250" selection-end-line="250" />
+            <state relative-caret-position="-1071">
+              <caret line="117" column="18" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -159,23 +186,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/alphazero_util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4148">
-              <caret line="249" column="53" selection-start-line="249" selection-start-column="53" selection-end-line="249" selection-end-column="53" />
+            <state relative-caret-position="731">
+              <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
               <folding>
-                <element signature="e#0#45#0" expanded="true" />
-                <marker date="1542363423247" expanded="true" signature="11156:11161" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/main_from_continue.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="61" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
+                <marker date="1543759844715" expanded="true" signature="1653:1658" ph="..." />
               </folding>
             </state>
           </provider>
@@ -193,16 +208,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>knight</find>
-      <find>deepre</find>
-      <find>mp*1,3*1,1</find>
-      <find>mp*7,3*-1,1</find>
-      <find>(1,1)</find>
-      <find>axis=1</find>
-      <find>n_values</find>
-      <find>action = np.random.choice(</find>
-      <find>deep_rep</find>
-      <find>proba</find>
       <find>(1,0)</find>
       <find>refresh</find>
       <find>print</find>
@@ -223,6 +228,16 @@
       <find>mirror</find>
       <find>== 0</find>
       <find>mirror_action</find>
+      <find>self.player_c</find>
+      <find>play_with_ai_white</find>
+      <find>ai_agent</find>
+      <find>epsi</find>
+      <find>number_of_</find>
+      <find>self_pla</find>
+      <find>the num</find>
+      <find>simulation</find>
+      <find>MCTS</find>
+      <find>MCTreeSearch</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -233,39 +248,41 @@
       <list>
         <option value="$PROJECT_DIR$/Reinforcement Learning.ipynb" />
         <option value="$PROJECT_DIR$/ReinforcementLearningPolicy.ipynb" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/main_gui.py" />
-        <option value="$PROJECT_DIR$/model/rune.py" />
-        <option value="$PROJECT_DIR$/ai_modules/classic_algorithm.py" />
-        <option value="$PROJECT_DIR$/model/pawn.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/alphazero.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/action_encoder.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/alphazero_util.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/stacked_state.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/PawnNet.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/alphazero.py" />
-        <option value="$PROJECT_DIR$/ai_modules/ai_elements.py" />
         <option value="$PROJECT_DIR$/view/game_view.py" />
-        <option value="$PROJECT_DIR$/controller/game_controller.py" />
         <option value="$PROJECT_DIR$/ai_modules/reinforcement_learning_helper.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
-        <option value="$PROJECT_DIR$/reinforcement_learning_train/util/stacked_state.py" />
-        <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py" />
-        <option value="$PROJECT_DIR$/model/state.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/main_from_start.py" />
         <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/main_from_continue.py" />
-        <option value="$PROJECT_DIR$/reinforcement_learning_train/util/alphazero_util.py" />
-        <option value="$PROJECT_DIR$/reinforcement_learning_train/util/action_encoder.py" />
-        <option value="$PROJECT_DIR$/util/state_modifier_util.py" />
-        <option value="$PROJECT_DIR$/ai_modules/reinforcement_algorithm.py" />
         <option value="$PROJECT_DIR$/main_from_continue.py" />
-        <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/mcts.py" />
-        <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/train_module.py" />
         <option value="$PROJECT_DIR$/main_from_start.py" />
+        <option value="$PROJECT_DIR$/model/pawn.py" />
+        <option value="$PROJECT_DIR$/model/rune.py" />
+        <option value="$PROJECT_DIR$/ai_modules/ai_elements.py" />
+        <option value="$PROJECT_DIR$/model/state.py" />
+        <option value="$PROJECT_DIR$/ai_modules/classic_algorithm.py" />
+        <option value="$PROJECT_DIR$/controller/game_controller.py" />
+        <option value="$PROJECT_DIR$/util/state_modifier_util.py" />
+        <option value="$PROJECT_DIR$/reinforcement_learning_train/no01_pure_deep_q_network.py" />
+        <option value="$PROJECT_DIR$/reinforcement_learning_train/util/action_encoder.py" />
+        <option value="$PROJECT_DIR$/reinforcement_learning_train/util/alphazero_util.py" />
+        <option value="$PROJECT_DIR$/reinforcement_learning_train/util/stacked_state.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/mcts.py" />
+        <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py" />
+        <option value="$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/train_module.py" />
+        <option value="$PROJECT_DIR$/ai_modules/reinforcement_algorithm.py" />
+        <option value="$PROJECT_DIR$/config.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="1750" />
     <option name="height" value="970" />
@@ -289,6 +306,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -301,31 +319,14 @@
               <item name="evo-pawness" type="462c0819:PsiDirectoryNode" />
               <item name="ai_modules" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="evo-pawness" type="b2602c69:ProjectViewProjectNode" />
-              <item name="evo-pawness" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="evo-pawness" type="b2602c69:ProjectViewProjectNode" />
-              <item name="evo-pawness" type="462c0819:PsiDirectoryNode" />
-              <item name="reinforcement_learning_train" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="evo-pawness" type="b2602c69:ProjectViewProjectNode" />
-              <item name="evo-pawness" type="462c0819:PsiDirectoryNode" />
-              <item name="reinforcement_learning_train" type="462c0819:PsiDirectoryNode" />
-              <item name="alpha_zero" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/HaryoAW/Documents/Belajar/Machine Learning/Reinforcement Learning/baru_git/evo-pawness/reinforcement_learning_train/alpha_zero/main_from_start.py" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/HaryoAW/Documents/Belajar/Machine Learning/Reinforcement Learning/baru_git/evo-pawness/model/rune.py" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../Project/RumourEval" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -518,10 +519,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20469798" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21006711" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info x="0" y="0" width="1536" height="814" id="Run" order="3" sideWeight="0.49932885" type="FLOATING" weight="0.34751773" />
@@ -631,9 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_gui.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/231406865/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -641,31 +638,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/no01_pure_deep_q_network.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Continuum/anaconda3/Lib/site-packages/pandas/core/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6443">
           <caret line="385" column="45" selection-start-line="385" selection-start-column="41" selection-end-line="385" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/game_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="71" column="31" lean-forward="true" selection-start-line="71" selection-start-column="31" selection-end-line="71" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -683,114 +659,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/main_from_start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ai_modules/classic_algorithm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/pawn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="56" column="29" lean-forward="true" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ai_modules/ai_elements.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="50" column="18" selection-start-line="50" selection-end-line="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ai_modules/reinforcement_algorithm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="25" column="40" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/mcts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-533">
-          <caret line="138" column="42" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/action_encoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="48" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/state_modifier_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/alphazero_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4148">
-          <caret line="249" column="53" selection-start-line="249" selection-start-column="53" selection-end-line="249" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-            <marker date="1542363423247" expanded="true" signature="11156:11161" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/train_module.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="181" column="52" selection-start-line="181" selection-start-column="52" selection-end-line="181" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1543137307487" expanded="true" signature="3447:5205" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main_from_start.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/stacked_state.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
+        <state relative-caret-position="238">
+          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_from_continue.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="340">
+          <caret line="23" column="86" selection-start-line="10" selection-start-column="4" selection-end-line="23" selection-end-column="86" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_gui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/pawn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
         </state>
       </provider>
     </entry>
@@ -801,17 +700,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/state.py">
+    <entry file="file://$PROJECT_DIR$/model/player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2278">
-          <caret line="250" selection-start-line="250" selection-end-line="250" />
+        <state relative-caret-position="442">
+          <caret line="59" column="80" selection-start-line="59" selection-start-column="80" selection-end-line="59" selection-end-column="80" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/player.py">
+    <entry file="file://$PROJECT_DIR$/ai_modules/ai_elements.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="59" column="80" lean-forward="true" selection-start-line="59" selection-start-column="80" selection-end-line="59" selection-end-column="80" />
+        <state relative-caret-position="258">
+          <caret line="144" column="55" selection-start-line="144" selection-start-column="55" selection-end-line="144" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/state.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8517">
+          <caret line="508" column="22" selection-start-line="508" selection-start-column="22" selection-end-line="508" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/game_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="35" column="69" lean-forward="true" selection-start-line="35" selection-start-column="69" selection-end-line="35" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/no01_pure_deep_q_network.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="20" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -825,13 +751,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py">
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/main_from_start.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="44" lean-forward="true" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+        <state relative-caret-position="391">
+          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/state_modifier_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-176">
+          <caret line="60" column="70" selection-start-line="60" selection-start-column="70" selection-end-line="60" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/action_encoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="53" column="33" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/alphazero_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1543759844715" expanded="true" signature="1653:1658" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/util/stacked_state.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-363">
+          <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/mcts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3553">
+          <caret line="218" column="30" selection-start-line="218" selection-start-column="30" selection-end-line="218" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/train_module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="106" column="24" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1543765482413" expanded="true" signature="4686:6423" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ai_modules/classic_algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1071">
+          <caret line="117" column="18" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <marker date="1541586520976" expanded="true" signature="2070:2075" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ai_modules/reinforcement_algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reinforcement_learning_train/alpha_zero/deep_net_architecture.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="76" column="11" selection-start-line="76" selection-start-column="11" selection-end-line="76" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <marker date="1543763961446" expanded="true" signature="2483:2488" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="93" column="23" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
+          <folding>
+            <element signature="e#41#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="111" column="24" lean-forward="true" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
+          <folding>
+            <marker date="1543766060838" expanded="true" signature="22:23" ph="..." />
+            <marker date="1543766060838" expanded="true" signature="2557:2770" ph="..." />
+            <marker date="1543766060838" expanded="true" signature="2792:2793" ph="..." />
+            <marker date="1543766060838" expanded="true" signature="2994:2999" ph="..." />
           </folding>
         </state>
       </provider>

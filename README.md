@@ -2,8 +2,10 @@
 
 Based on the article that I write https://towardsdatascience.com/create-your-own-board-game-with-powerful-ai-from-scratch-part-1-5dcb028002b8  
 
-<p>The game will be used to experiment AI Algorithm. Currently, No AI Algorithm that has been implemented. For the rules of the game, you can read the article.</p>
-
+<p>The game will be used to experiment some AI Algorithm. There are two AI Algorithms that is already implemented:
+ AlphaZero and Minimax</p>
+<h3> NEW 02/12/2018 : I have added all of the documentation on the AlphaZero and Minimax </h3>
+<h3> Wait for me to edit this README. </h3>
 GUI has been added
 
 ## Requirement
