@@ -28,7 +28,8 @@ class AlphaZeroConfig:
     # Number of simulations of the MCTS
     MCTS_SIMULATION = 25
 
-    # Maximum of the number of episodes used to do "greedy" mode
+    # Maximum of the number of episodes used to do "greedy" mode. 0 If you
+    # do not want it.
     GREEDY_EPISODE = 0.125 * EPISODE
 
     # Batch size on fitting the neural network model
@@ -67,7 +68,6 @@ class AlphaZeroConfig:
     TEMPERATURE_END_STEP = 31
 
     # The number of minimum turn in each episode to do the greedy mode.
-    # The current episode must be lower than GREEDY_EPISODE
     GREEDY_TURN_MIN = 50
 
     # The maximum of simulation of MCTS on training the model

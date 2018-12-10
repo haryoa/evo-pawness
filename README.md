@@ -1,72 +1,65 @@
 # EvoPawness Game
 
-Based on the article that I write https://towardsdatascience.com/create-your-own-board-game-with-powerful-ai-from-scratch-part-1-5dcb028002b8  
+Based on the article that I write  
+Part 1: https://towardsdatascience.com/create-your-own-board-game-with-powerful-ai-from-scratch-part-1-5dcb028002b8  
+Part 2: https://towardsdatascience.com/create-ai-for-your-own-board-game-from-scratch-minimax-part-2-517e1c1e3362  
+Part 3: https://towardsdatascience.com/create-ai-for-your-own-board-game-from-scratch-alpha-zero-part-3-f22761372245  
 
-<p>The game will be used to experiment some AI Algorithm. There are two AI Algorithms that is already implemented:
- AlphaZero and Minimax</p>
-<h3> NEW 02/12/2018 : I have added all of the documentation on the AlphaZero and Minimax </h3>
-<h3> Wait for me to edit this README. </h3>
-GUI has been added
+This repository has the documentation almost all of functions. Hope that it will make you understand better.
+
+The game will be used to experiment some AI Algorithms. There are two AI Algorithms that have been already implemented:
+1. AlphaZero
+2. Minimax
 
 ## Requirement
 
 1. Python 3.6 (Anaconda Python is preferred)
 2. Pandas
+3. Tensorflow (For implementing AlphaZero)
+4. Keras (For implementing AlphaZero)
+5. PtQt5 (For the GUI)
 
 Install Python Anaconda if you haven't
 https://www.anaconda.com/download/
 
-If you use GUI:
-1. PyQt5
-`pip install pyqt5`
+install each packages by using `pip install`
+
+## Configuration
+You can see `config.py` for the configuration of this program and edit it.
+See the `config.py` for further information
+
 
 ## How to use
 1. Clone the git repository
-2. Activate your CLI or terminal and do command `python main.py` or `python main_gui.py` in the main directory.
+2. Do the following accordingly:
 
-## Format output CLI
+*Train AlphaZero without pre-trained model (the model that you have previously trained)*:  
+`python main.py train -azt`
 
-#### Possible Action
-List of Action :  
-`{'ACTION_KEY': {'action': 'ACTION_TYPE',
-          'PARAMS' : 'VALUE PARAMS'}
-#### Board
-To read:  
-Soi3a1h5t1sFa  
-So = Soldier the type of pawn, It will takes 2 characters from the pawn's type name  
-i3 = player index  
-a1 = Attack point is 1   
-h5 = health point of pawn is 5  
-t1 = Step is 1  
-sFa = Status is inactive (False) Tr if active  
+*Train AlphaZero from pre-trained model*:  
+`python main.py train -aztc`
 
-#### Mana Status of Each Players
+*Play the game with PyQt5 GUI* :  
+`python main.py play -p GUI`
 
-`Mana (White, Black) = (5, 5)`<br>
-#### Rune
-`Rune List:
-{}`
+CLI is currently unavailable
 
-## How to use the GUI:
+
+
+## GUI
 ![alt text](GUI.PNG "Logo Title Text 1")
 
-Use this command on your terminal
-`python main_gui.py`
 
-## Command list on CLI:
-|Command| Description|
-|-------|------------|
-|exit|exit the game|
-|ACTION_KEY|input the action. The ACTION_KEY is stated in the list of action provided in the command line.|
+
 ## Progress
 - [x] Add basic elements to be input of AI Algorithm
-- [ ] Documenting (almost all of them)
-- [ ] Fix the mess of the code (need more class and remove unnecessary code)
+- [x] Documenting (almost all of them)
+- [ ] Fix the mess of the code (need more class and remove unnecessary code
 - [x] Create the GUI
 - [x] Use classic AI Algorithm
-- [ ] Experimenting Value-based Reinforcement Learning
-- [ ] Experimenting Policy-based Reinforcement Learning
-- [ ] Experimenting Value and Policy based Reinforcement Learning
+- [x] Experimenting Value-based Reinforcement Learning (Failed with DQN)
+- [x] Experimenting Policy-based Reinforcement Learning (Implemented with AlphaZero instead)
+- [ ] Improve AlphaZero and implement PPO to this game
 
 ## FAQ
 Q : Can I Contribute? <br>
